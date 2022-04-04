@@ -55,18 +55,36 @@ class _HomePageState extends State<HomePage> {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
       body: _model == ""
-          ? Center(
+          ?Stack(
+            children: [
+              Container(
+                decoration:  BoxDecoration(
+                  color: Colors.blue.shade900
+                ),
+              ),
+              Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // ignore: deprecated_member_use
-                  RaisedButton(
-                    child: const Text('ssd'),
-                    onPressed: () => onSelect('ssd'),
-                  ),
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.only(left: 50,right: 50,top: 20,bottom: 20),
+                    ),
+                    onPressed: (){
+                      onSelect('ssd');
+                    }, 
+                    child: const Text('Start'),
+                    )
                 ],
               ),
-            )
+          )
+            ],
+          )
+           
           : Stack(
               children: [
                 Camera(
@@ -81,14 +99,20 @@ class _HomePageState extends State<HomePage> {
                     screen.height,
                     screen.width,
                     _model),
-                IconButton(
-                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,), 
-                  onPressed: (){
-                    setState(() {
-                          _model="";              
-                      });
-                  }
-                  )
+               Padding(
+                 padding: const EdgeInsets.only(top: 30,left: 10),
+                 child: Align(
+                   alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back_rounded,color: Colors.white,), 
+                      onPressed: (){
+                        setState(() {
+                              _model="";              
+                          });
+                      }
+                      ),
+                  ),
+               )
               ],
             ),
     );
